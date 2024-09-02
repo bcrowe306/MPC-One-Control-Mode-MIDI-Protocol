@@ -274,6 +274,117 @@ HEADER      PRODUCT_ID      TEXT_MSG_TYPE   CONTROL_PAGE   CONTROL_ID   MSG_META
 F0 47 00    3B              10              00             00           00 05            48 65 6C 6C 6F           F7 
 ```
 
+### Message Metadata
+Here are some functions to help generate the metadata in Python
+
+```python
+def clamp(val, minv, maxv):
+    return max(minv, min(val, maxv))
+
+def message_length(message) -> tuple:
+    length = len(message)
+    return (
+     clamp(length // 128, 0, 127), length % 128)
+```
+
+
+
+### Message Text to Ascii
+Here is a translation table from text to ASCII encoding in Python 
+
+```python
+ascii_translations = {'0':48, 
+     '1':49, 
+     '2':50, 
+     '3':51, 
+     '4':52, 
+     '5':53, 
+     '6':54, 
+     '7':55, 
+     '8':56, 
+     '9':57, 
+     'A':65, 
+     'B':66, 
+     'C':67, 
+     'D':68, 
+     'E':69, 
+     'F':70, 
+     'G':71, 
+     'H':72, 
+     'I':73, 
+     'J':74, 
+     'K':75, 
+     'L':76, 
+     'M':77, 
+     'N':78, 
+     'O':79, 
+     'P':80, 
+     'Q':81, 
+     'R':82, 
+     'S':83, 
+     'T':84, 
+     'U':85, 
+     'V':86, 
+     'W':87, 
+     'X':88, 
+     'Y':89, 
+     'Z':90, 
+     'a':97, 
+     'b':98, 
+     'c':99, 
+     'd':100, 
+     'e':101, 
+     'f':102, 
+     'g':103, 
+     'h':104, 
+     'i':105, 
+     'j':106, 
+     'k':107, 
+     'l':108, 
+     'm':109, 
+     'n':110, 
+     'o':111, 
+     'p':112, 
+     'q':113, 
+     'r':114, 
+     's':115, 
+     't':116, 
+     'u':117, 
+     'v':118, 
+     'w':119, 
+     'x':120, 
+     'y':121, 
+     'z':122, 
+     '@':64, 
+     ' ':32, 
+     '!':33, 
+     '"':34, 
+     '.':46, 
+     ',':44, 
+     ':':58, 
+     ';':59, 
+     '?':63, 
+     '<':60, 
+     '>':62, 
+     '[':91, 
+     ']':93, 
+     '_':95, 
+     '-':45, 
+     '|':124, 
+     '&':38, 
+     '^':94, 
+     '~':126, 
+     '`':96, 
+     "'":39, 
+     '%':37, 
+     '(':40, 
+     ')':41, 
+     '/':47, 
+     '\\':92, 
+     '*':42, 
+     '+':43}
+
+```
 
 ## TUI Track Buttons
 The track buttons can display color, text, icon, and state.
@@ -304,6 +415,22 @@ To put a track in a selected state, A NoteOn/Off message is sent using the track
 | --    | ----     |
 | Default   | 0     |
 | Selected | 1 |
+
+
+### Track Names
+Track names are via the text protocol. Here is the table of the track names:
+
+| Track | CONTROL_PAGE| CONTROL_ID |
+| --- | --- | --- |
+| Track1 | 0 | 0 |
+| Track2 | 0 | 1 |
+| Track3 | 0 | 2 |
+| Track4 | 0 | 3 |
+| Track5 | 0 | 4 |
+| Track6 | 0 | 5 |
+| Track7 | 0 | 6 |
+| Track8 | 0 | 7 |
+
 
 <!-- DEVICE PAGE -->
 
@@ -492,6 +619,42 @@ Here is a mapping of the color indecies to RGB values
 | 67 | 81, 37, 86 |
 | 68 | 102, 23, 55 |
 | 69 | 30, 30, 30 |
+
+### Clip Names/Text
+Clip names/text can be set using the text protocol.
+
+The CONTROL_PAGE for the clips is 0.
+
+The CONTROL_ID can be calculated by starting at 16. The grid is 8x8, and the CONTROL_ID increases by one to the next one in the row. 
+
+Here is a table of the CONTROL_IDs
+
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
+| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
+| 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 |
+| 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 |
+| 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 |
+| 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 |
+| 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 |
+| 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 |
+
+
+### Scene Names
+Scene names can be set using the text Protocol. The CONTROL_PAGE is 0. Here is a table of the CONTROL_IDs
+
+| Scene | CONTROL_ID |
+| ----- | --- |
+| Scene1 | 80 |
+| Scene2 | 81 |
+| Scene3 | 82 |
+| Scene4 | 83 |
+| Scene5 | 84 |
+| Scene6 | 85 |
+| Scene7 | 86 |
+| Scene8 | 87 |
+
 
 ## Transport Feedback
 
