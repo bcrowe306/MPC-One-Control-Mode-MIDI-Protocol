@@ -128,7 +128,7 @@ The top header has transport controls that send data. Here is a table of the ava
 ## Session Controls
 
 ### Pad Matrix
-The pad matrix is an 8x8 matrix of "Cells". They respond to touch using note on and note off values. 
+The pad matrix is an 8x8 matrix of "Cells". They respond to touch using note on and note off values on MIDI channel 1(0 in code)
 
 Here is a table of the matrix. The values in the matrix are the midi note that the cells respond to. 
 
